@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import TicTacToeView from '@/views/TicTacToeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,7 +21,7 @@ const router = createRouter({
     {
       path: '/tictactoe',
       name: 'tictactoe',
-      component: () => import('../views/TicTacToeView.vue'),
+      component: TicTacToeView,
     },
   ],
 })
