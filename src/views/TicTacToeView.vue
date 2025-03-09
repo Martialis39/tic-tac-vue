@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import Square from '../components/Square.vue'
 
-let count = ref(0)
 let turn = ref('X')
 let hasWinner = ref(false)
 let winningSide = ref('')
@@ -65,39 +65,19 @@ function checkWin(board: string[], playerSymbol: string): boolean {
 <template>
   <div class="wrapper">
     <div class="board">
-      <div :class="{ active: !hasWinner }" @click="fillSquare(0)" class="square">
-        {{ board[0] }}
-      </div>
-      <div :class="{ active: !hasWinner }" @click="fillSquare(1)" class="square">
-        {{ board[1] }}
-      </div>
-      <div :class="{ active: !hasWinner }" @click="fillSquare(2)" class="square">
-        {{ board[2] }}
-      </div>
-      <div :class="{ active: !hasWinner }" @click="fillSquare(3)" class="square">
-        {{ board[3] }}
-      </div>
-      <div :class="{ active: !hasWinner }" @click="fillSquare(4)" class="square">
-        {{ board[4] }}
-      </div>
-      <div :class="{ active: !hasWinner }" @click="fillSquare(5)" class="square">
-        {{ board[5] }}
-      </div>
-      <div :class="{ active: !hasWinner }" @click="fillSquare(6)" class="square">
-        {{ board[6] }}
-      </div>
-      <div :class="{ active: !hasWinner }" @click="fillSquare(7)" class="square">
-        {{ board[7] }}
-      </div>
-      <div :class="{ active: !hasWinner }" @click="fillSquare(8)" class="square">
-        {{ board[8] }}
-      </div>
+      <Square
+        v-for="(item, index) in board"
+        :content="item"
+        :active="!hasWinner"
+        @fill="
+          () => {
+            fillSquare(index)
+          }
+        "
+      />
     </div>
     <div>
       <div class="winnerText" v-if="hasWinner">Winner is {{ winningSide }}</div>
-    </div>
-    <div class="view">
-      <button @click="count++">You clicked me {{ count }} times.</button>
     </div>
   </div>
 </template>
@@ -111,20 +91,6 @@ function checkWin(board: string[], playerSymbol: string): boolean {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-}
-
-.square {
-  border-radius: 0.5rem;
-  margin: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  transition: all 500ms;
-  border: 0.25rem solid black;
-}
-.square.active {
-  border: 0.25rem solid hotpink;
 }
 
 .winnerText {
